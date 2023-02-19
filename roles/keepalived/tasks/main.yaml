@@ -1,0 +1,17 @@
+- name: Install keepalived
+  yum:
+    name: keepalived
+    state: latest
+
+- name: Add keepalived config
+  template:
+    src: templates/keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  vars:
+    vip: 192.168.31.199
+    interface: enp0s3
+
+- name: Restart keepalived
+  service:
+    name: keepalived
+    state: restarted
